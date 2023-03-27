@@ -30,6 +30,5 @@ struct User: ParseUser {
 
     // Your custom properties.
 
-    var lastPostedDate: Date?
 
 }
