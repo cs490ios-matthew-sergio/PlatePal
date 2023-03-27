@@ -17,7 +17,7 @@ class PostViewController: UIViewController {
 
     // MARK: Outlets
     @IBOutlet weak var shareButton: UIBarButtonItem!
-    @IBOutlet weak var captionTextField: UITextField!
+    @IBOutlet weak var captionTextField: UITextView!
     @IBOutlet weak var previewImageView: UIImageView!
 
     private var pickedImage: UIImage?
@@ -26,7 +26,7 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    @IBAction func onPickedImageTapped(_ sender: UIBarButtonItem) {
+    @IBAction func onChooseImageTapped(_ sender: Any) {
         // TODO: Pt 1 - Present Image picker
         // Create and configure PHPickerViewController
 
@@ -51,6 +51,7 @@ class PostViewController: UIViewController {
         // Present the picker
         present(picker, animated: true)
     }
+
 
     @IBAction func onShareTapped(_ sender: Any) {
         // Dismiss Keyboard
