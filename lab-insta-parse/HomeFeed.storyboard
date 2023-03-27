@@ -9,16 +9,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home-->
+        <!--PlatePal-->
         <scene sceneID="b4H-qU-usi">
             <objects>
-                <viewController storyboardIdentifier="HomeFeed" id="kUg-my-44r" customClass="FeedViewController" customModule="PlatePal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeFeed" title="PlatePal" id="kUg-my-44r" userLabel="PlatePal" customClass="FeedViewController" customModule="PlatePal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rPb-qL-OBy">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4kd-nW-pzV">
-                                <rect key="frame" x="0.0" y="119" width="393" height="733"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="527" id="IJV-M6-yhR" customClass="PostCell" customModule="PlatePal" customModuleProvider="target">
@@ -110,35 +110,34 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jRW-OR-v3d">
-                                <rect key="frame" x="140" y="60" width="113" height="34.333333333333343"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j6E-UL-s2Y">
-                                        <rect key="frame" x="0.0" y="0.0" width="113" height="34.333333333333336"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" title="Create Post"/>
-                                        <connections>
-                                            <segue destination="IaJ-JD-xe9" kind="show" id="7XU-Pq-Gjm"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="X8e-Ag-7i9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="4kd-nW-pzV" firstAttribute="top" secondItem="X8e-Ag-7i9" secondAttribute="top" constant="60" id="5aw-R3-YZL"/>
-                            <constraint firstItem="X8e-Ag-7i9" firstAttribute="trailing" secondItem="jRW-OR-v3d" secondAttribute="trailing" constant="140" id="Uun-xP-GYV"/>
+                            <constraint firstItem="4kd-nW-pzV" firstAttribute="top" secondItem="X8e-Ag-7i9" secondAttribute="top" id="5aw-R3-YZL"/>
                             <constraint firstItem="X8e-Ag-7i9" firstAttribute="trailing" secondItem="4kd-nW-pzV" secondAttribute="trailing" id="af9-Ew-EwL"/>
                             <constraint firstItem="4kd-nW-pzV" firstAttribute="leading" secondItem="X8e-Ag-7i9" secondAttribute="leading" id="bsH-sd-CyA"/>
                             <constraint firstAttribute="bottom" secondItem="4kd-nW-pzV" secondAttribute="bottom" id="cIL-hz-9r8"/>
-                            <constraint firstItem="jRW-OR-v3d" firstAttribute="leading" secondItem="X8e-Ag-7i9" secondAttribute="leading" constant="140" id="efq-wk-vff"/>
-                            <constraint firstItem="jRW-OR-v3d" firstAttribute="top" secondItem="rPb-qL-OBy" secondAttribute="top" constant="60" id="sMt-h0-oKE"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="homekit" catalog="system" id="Mkk-Du-Pwh"/>
-                    <navigationItem key="navigationItem" id="nzc-b4-n5X"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="PlatePal" id="lWo-x0-pgp" userLabel="PlatePal">
+                        <barButtonItem key="backBarButtonItem" title=" " id="1Mt-ZE-bjh"/>
+                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="g1Z-aA-JYp">
+                            <color key="tintColor" systemColor="labelColor"/>
+                            <connections>
+                                <action selector="onLogOutTapped:" destination="kUg-my-44r" id="ync-Ka-QJ6"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="plus.app" catalog="system" id="l7e-lC-GgD">
+                            <color key="tintColor" systemColor="labelColor"/>
+                            <connections>
+                                <segue destination="IaJ-JD-xe9" kind="show" id="waJ-3n-JmW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="4kd-nW-pzV" id="Edk-jT-Y1h"/>
                     </connections>
@@ -152,11 +151,11 @@
             <objects>
                 <viewController id="IaJ-JD-xe9" customClass="PostViewController" customModule="PlatePal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wOa-Nl-T1j">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9v3-7B-War">
-                                <rect key="frame" x="0.0" y="59" width="393" height="393"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="k6u-Jt-vJV">
+                                <rect key="frame" x="0.0" y="59" width="393" height="693"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aEC-bN-NET">
                                         <rect key="frame" x="0.0" y="1.6666666666666572" width="393" height="390"/>
@@ -167,60 +166,56 @@
                                         </constraints>
                                         <imageReference key="image" image="photo.artframe" catalog="system" symbolScale="default"/>
                                     </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter separated list of food items here ..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K2h-fN-uZ0">
+                                        <rect key="frame" x="0.0" y="393" width="393" height="300"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="aEC-bN-NET" firstAttribute="top" secondItem="9v3-7B-War" secondAttribute="top" constant="50" id="B9n-PX-REd"/>
+                                    <constraint firstAttribute="width" constant="370" id="sAG-7T-vhs"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jLo-wn-Add">
-                                <rect key="frame" x="16" y="16" width="134" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="Choose Image"/>
-                                <connections>
-                                    <action selector="onChooseImageTapped:" destination="IaJ-JD-xe9" eventType="touchUpInside" id="Kyt-cR-Ugr"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtt-cY-GiU">
-                                <rect key="frame" x="327" y="16" width="58" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="Post"/>
-                                <connections>
-                                    <action selector="onShareTapped:" destination="IaJ-JD-xe9" eventType="touchUpInside" id="hpk-fA-SVt"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2eV-tZ-H9C">
-                                <rect key="frame" x="186" y="16" width="109" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="Take Photo"/>
-                                <connections>
-                                    <action selector="onTakePhotoTapped:" destination="IaJ-JD-xe9" eventType="touchUpInside" id="INt-ZU-JJ1"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Enter separated list of food items here ..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K2h-fN-uZ0">
-                                <rect key="frame" x="31" y="460" width="330" height="247"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rZR-1e-dt4"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="9v3-7B-War" firstAttribute="leading" secondItem="rZR-1e-dt4" secondAttribute="leading" id="CG1-2u-Bn2"/>
-                            <constraint firstItem="9v3-7B-War" firstAttribute="top" secondItem="rZR-1e-dt4" secondAttribute="top" id="WBa-LI-02O"/>
-                            <constraint firstItem="9v3-7B-War" firstAttribute="trailing" secondItem="rZR-1e-dt4" secondAttribute="trailing" id="WTU-nw-vSz"/>
+                            <constraint firstItem="k6u-Jt-vJV" firstAttribute="trailing" secondItem="rZR-1e-dt4" secondAttribute="trailing" id="ARN-KG-diM"/>
+                            <constraint firstItem="k6u-Jt-vJV" firstAttribute="top" secondItem="rZR-1e-dt4" secondAttribute="top" id="GfS-9s-5nA"/>
+                            <constraint firstItem="k6u-Jt-vJV" firstAttribute="leading" secondItem="rZR-1e-dt4" secondAttribute="leading" id="cuj-2m-bzi"/>
+                            <constraint firstAttribute="bottom" secondItem="k6u-Jt-vJV" secondAttribute="bottom" constant="100" id="map-32-k7G"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="lLF-4I-mAL" appends="YES" id="jjs-ew-Wop"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="We6-HC-8RH"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="cbK-Cu-WSb">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Share" id="dLS-Mz-Yn2">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="onShareTapped:" destination="IaJ-JD-xe9" id="VFE-YI-jPE"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="camera" catalog="system" id="4NT-oj-vqp">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="onTakePhotoTapped:" destination="IaJ-JD-xe9" id="pTb-kk-Wvw"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="photo" catalog="system" id="Oh2-dI-yfa">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="onChooseImageTapped:" destination="IaJ-JD-xe9" id="aKU-Pk-VsF"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="captionTextField" destination="K2h-fN-uZ0" id="cyE-h7-qJw"/>
                         <outlet property="previewImageView" destination="aEC-bN-NET" id="3p3-fz-BjT"/>
@@ -237,8 +232,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera" catalog="system" width="128" height="93"/>
         <image name="homekit" catalog="system" width="128" height="104"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
         <image name="photo.artframe" catalog="system" width="128" height="93"/>
+        <image name="plus.app" catalog="system" width="128" height="114"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
