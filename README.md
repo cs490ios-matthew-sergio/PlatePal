@@ -52,7 +52,7 @@ PlatePal is an iOS application that allows users to share the meals they eat thr
 * User can detail the contents of their meal and an API will calculate the nutrition facts
 * ~~User can take a picture or choose a photo from their library to include in the post~~
 * ~~User can view all other user's posts in their home feed~~
-* User can view statistics about their meals in the profile page
+* ~~User can view statistics about their meals in the profile page~~
 * User can click on a post to see a more detailed view
 
 **Optional Nice-to-have Stories**
