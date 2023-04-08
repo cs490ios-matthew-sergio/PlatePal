@@ -25,4 +25,30 @@ struct Post: ParseObject {
     var caption: String?
     var user: User?
     var imageFile: ParseFile?
+    var food: String?
+    var mealCal: Float?
+    var mealPro: Float?
+    var mealCar: Float?
+    var mealFat: Float?
+}
+
+struct Nutrients: Decodable {
+     var ENERC_KCAL: Float
+     var PROCNT: Float
+     var FAT: Float
+     var CHOCDF: Float
+}
+
+struct Food: Decodable {
+    var label: String
+    var nutrients: Nutrients
+}
+
+struct FoodItem: Decodable {
+    var food: Food
+}
+
+struct PostResponse: Decodable {
+    var text: String
+    var parsed: [FoodItem]
 }

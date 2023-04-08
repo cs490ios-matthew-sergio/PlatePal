@@ -155,10 +155,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="k6u-Jt-vJV">
-                                <rect key="frame" x="0.0" y="59" width="393" height="693"/>
+                                <rect key="frame" x="0.0" y="59" width="338.66666666666669" height="693"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aEC-bN-NET">
-                                        <rect key="frame" x="0.0" y="1.6666666666666572" width="393" height="390"/>
+                                        <rect key="frame" x="0.0" y="1.6666666666666572" width="338.66666666666669" height="335.66666666666663"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="0.22544446530000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="0.099878172210000005" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
@@ -166,8 +166,19 @@
                                         </constraints>
                                         <imageReference key="image" image="photo.artframe" catalog="system" symbolScale="default"/>
                                     </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter separated list of food items here ..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K2h-fN-uZ0">
-                                        <rect key="frame" x="0.0" y="393" width="393" height="300"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Caption your meal!" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hFu-2E-RDo">
+                                        <rect key="frame" x="0.0" y="338.66666666666669" width="338.66666666666669" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Food Items:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68r-7a-QUE">
+                                        <rect key="frame" x="0.0" y="372.66666666666669" width="338.66666666666669" height="20.333333333333314"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K2h-fN-uZ0">
+                                        <rect key="frame" x="0.0" y="393" width="338.66666666666669" height="300"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -176,6 +187,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="370" id="sAG-7T-vhs"/>
+                                    <constraint firstItem="68r-7a-QUE" firstAttribute="top" secondItem="hFu-2E-RDo" secondAttribute="bottom" constant="20" id="yA9-1V-UrO"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -217,7 +229,8 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="captionTextField" destination="K2h-fN-uZ0" id="cyE-h7-qJw"/>
+                        <outlet property="captionText" destination="hFu-2E-RDo" id="CIj-0f-9vU"/>
+                        <outlet property="foodText" destination="K2h-fN-uZ0" id="qr5-GA-ptk"/>
                         <outlet property="previewImageView" destination="aEC-bN-NET" id="3p3-fz-BjT"/>
                     </connections>
                 </viewController>
