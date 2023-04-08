@@ -105,6 +105,8 @@ extension FeedViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         cell.configure(with: posts[indexPath.row])
+        //cell.layer.cornerRadius = 15
+        //cell.layer.masksToBounds = true
         return cell
     }
 }

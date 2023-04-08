@@ -25,7 +25,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource {
         
         UserPhoto.layer.cornerRadius = UserPhoto.frame.height / 2
         
-        userNameLabel.text = "herna518"
+        userNameLabel.text = "USERNAME"
         
         meals = Meal.mockMeals
         print(meals)
