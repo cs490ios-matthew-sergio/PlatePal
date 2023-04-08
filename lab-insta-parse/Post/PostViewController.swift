@@ -52,6 +52,42 @@ class PostViewController: UIViewController {
         // Present the picker
         present(picker, animated: true)
     }
+    
+    func fetchData(_ completion: @escaping (_ success: Bool, _ data: Data?) -> Void) {
+        
+        let encodedFood = (foodText.text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "NA"
+        let encodedUrl = "https://api.edamam.com/api/food-database/v2/parser?app_id=6a10ccf0&app_key=0ec3ac0c506b764c99b57c8473335240&ingr=" + encodedFood
+        print("ENCODED URL: " + encodedUrl)
+        let url = URL(string: encodedUrl)!
+
+        // Use the URL to instantiate a request
+        let request = URLRequest(url: url)
+
+        // Create a URLSession using a shared instance and call its dataTask method
+        // The data task method attempts to retrieve the contents of a URL based on the specified URL.
+        // When finished, it calls it's completion handler (closure) passing in optional values for data (the data we want to fetch), response (info about the response like status code) and error (if the request was unsuccessful)
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+
+            // Handle any errors
+            if let error = error {
+                print("❌ Network error: \(error.localizedDescription)")
+            }
+
+
+            // The `JSONSerialization.jsonObject(with: data)` method is a "throwing" function (meaning it can throw an error) so we wrap it in a `do` `catch`
+            // We cast the resultant returned object to a dictionary with a `String` key, `Any` value pair.
+            if let data = data {
+                completion(true, data)
+            } else {
+                completion(false, nil)
+            }
+        }
+        
+
+        // Initiate the network request
+        task.resume()
+    }
+    
 
 
     @IBAction func onShareTapped(_ sender: Any) {
@@ -77,96 +113,78 @@ class PostViewController: UIViewController {
         post.imageFile = imageFile
         post.caption = captionText.text
         post.food = foodText.text
-        let encodedFood = (foodText.text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "NA"
-        let encodedUrl = "https://api.edamam.com/api/food-database/v2/parser?app_id=6a10ccf0&app_key=0ec3ac0c506b764c99b57c8473335240&ingr=" + encodedFood
-        print("ENCODED URL: " + encodedUrl)
-        let url = URL(string: encodedUrl)!
-
-        // Use the URL to instantiate a request
-        let request = URLRequest(url: url)
-
-        // Create a URLSession using a shared instance and call its dataTask method
-        // The data task method attempts to retrieve the contents of a URL based on the specified URL.
-        // When finished, it calls it's completion handler (closure) passing in optional values for data (the data we want to fetch), response (info about the response like status code) and error (if the request was unsuccessful)
-        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-
-            // Handle any errors
-            if let error = error {
-                print("❌ Network error: \(error.localizedDescription)")
-            }
-
-
-            // The `JSONSerialization.jsonObject(with: data)` method is a "throwing" function (meaning it can throw an error) so we wrap it in a `do` `catch`
-            // We cast the resultant returned object to a dictionary with a `String` key, `Any` value pair.
-            if let data = data {
-                      do {
-                         let res = try JSONDecoder().decode(PostResponse.self, from: data)
-                          var totalCal: Float = 0.0
-                          var totalProtein: Float = 0.0
-                          var totalFat: Float = 0.0
-                          var totalCarbs: Float = 0.0
-                          for food in res.parsed {
-                              totalCal += food.food.nutrients.ENERC_KCAL
-                              totalProtein += food.food.nutrients.PROCNT
-                              totalFat += food.food.nutrients.FAT
-                              totalCarbs += food.food.nutrients.CHOCDF
-                          }
-                          post.mealCal = totalCal
-                          post.mealPro = totalProtein
-                          post.mealFat = totalFat
-                          post.mealCar = totalCarbs
-                          //print("\n\n\nCaption: \(post.caption)\nFood: \(post.food)\nCalories: \(post.mealCal)\nProtein: \(post.mealPro)\nFat: \(post.mealFat)\nCarbs:  \(post.mealCar)\n\n\n")
-                      } catch let error {
-                         print(error)
-                      }
-                   }
-        }
         
-
-        // Initiate the network request
-        task.resume()
-
-        // Set the user as the current user
-        post.user = User.current
-
-        // Save post (async)
-        post.save { [weak self] result in
-
-            // Switch to the main thread for any UI updates
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let post):
-                    print("✅ Post Saved! \(post)")
-
-                    // Get the current user
-                    if var currentUser = User.current {
-
-                        // Update the `lastPostedDate` property on the user with the current date.
-
-                        // Save updates to the user (async)
-                        currentUser.save { [weak self] result in
+        
+        fetchData { success, data in
+            do{
+                if success {
+                    let res = try JSONDecoder().decode(PostResponse.self, from: data!)
+                    var totalCal: Float = 0.0
+                    var totalProtein: Float = 0.0
+                    var totalFat: Float = 0.0
+                    var totalCarbs: Float = 0.0
+                    for food in res.parsed {
+                        totalCal += food.food.nutrients.ENERC_KCAL
+                        totalProtein += food.food.nutrients.PROCNT
+                        totalFat += food.food.nutrients.FAT
+                        totalCarbs += food.food.nutrients.CHOCDF
+                    }
+                    post.mealCal = totalCal
+                    post.mealPro = totalProtein
+                    post.mealFat = totalFat
+                    post.mealCar = totalCarbs
+                    //print("\n\n\nCaption: \(post.caption)\nFood: \(post.food)\nCalories: \(post.mealCal)\nProtein: \(post.mealPro)\nFat: \(post.mealFat)\nCarbs:  \(post.mealCar)\n\n\n")
+                    // Set the user as the current user
+                    post.user = User.current
+                    
+                    // Save post (async)
+                    post.save { [weak self] result in
+                        
+                        // Switch to the main thread for any UI updates
+                        DispatchQueue.main.async {
                             switch result {
-                            case .success(let user):
-                                print("✅ User Saved! \(user)")
-
-                                // Switch to the main thread for any UI updates
-                                DispatchQueue.main.async {
-                                    // Return to previous view controller
-                                    self?.navigationController?.popViewController(animated: true)
+                            case .success(let post):
+                                print("✅ Post Saved! \(post)")
+                                
+                                // Get the current user
+                                if var currentUser = User.current {
+                                    
+                                    // Update the `lastPostedDate` property on the user with the current date.
+                                    
+                                    // Save updates to the user (async)
+                                    currentUser.save { [weak self] result in
+                                        switch result {
+                                        case .success(let user):
+                                            print("✅ User Saved! \(user)")
+                                            
+                                            // Switch to the main thread for any UI updates
+                                            DispatchQueue.main.async {
+                                                // Return to previous view controller
+                                                self?.navigationController?.popViewController(animated: true)
+                                            }
+                                            
+                                        case .failure(let error):
+                                            self?.showAlert(description: error.localizedDescription)
+                                        }
+                                    }
                                 }
-
+                                
+                                
                             case .failure(let error):
                                 self?.showAlert(description: error.localizedDescription)
                             }
                         }
                     }
-
-
-                case .failure(let error):
-                    self?.showAlert(description: error.localizedDescription)
+                } else {
+                    // Show an error message
+                    print("Network request failed")
                 }
+            } catch {
+                print("error")
             }
         }
+
+        
     }
 
     @IBAction func onTakePhotoTapped(_ sender: Any) {
