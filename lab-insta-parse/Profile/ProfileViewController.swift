@@ -9,6 +9,8 @@ import UIKit
 
 import PhotosUI
 
+import ParseSwift
+
 
 
 class ProfileViewController: UIViewController, UITableViewDataSource {
@@ -26,6 +28,22 @@ class ProfileViewController: UIViewController, UITableViewDataSource {
         UserPhoto.layer.cornerRadius = UserPhoto.frame.height / 2
         
         userNameLabel.text = "USERNAME"
+        
+        let query = PFQuery(className:"Post")
+        query.whereKey("user", equalTo:"AFl9EBRXzU")
+        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
+            if let error = error {
+                // Log details of the failure
+                print(error.localizedDescription)
+            } else if let objects = objects {
+                // The find succeeded.
+                print("Successfully retrieved \(objects.count) scores.")
+                // Do something with the found objects
+                for object in objects {
+                    print(object.objectId as Any)
+                }
+            }
+        }
         
         meals = Meal.mockMeals
         print(meals)

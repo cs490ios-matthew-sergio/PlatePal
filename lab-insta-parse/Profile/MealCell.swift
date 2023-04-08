@@ -16,12 +16,12 @@ class MealCell: UITableViewCell {
     @IBOutlet weak var mealFatLabel: UILabel!
     
     /// Configures the cell's UI for the given track.
-    func configure(with meal: Meal) {
-        mealNameLabel.text = meal.mealName
-        mealCalLabel.text = meal.mealCal
-        mealProLabel.text = meal.mealPro
-        mealCarLabel.text = meal.mealCar
-        mealFatLabel.text = meal.mealFat
+    func configure(with post: Post) {
+        mealNameLabel.text = post.caption
+        mealCalLabel.text = "\(post.mealCal)"
+        mealProLabel.text = "\(post.mealPro)"
+        mealCarLabel.text = "\(post.mealCar)"
+        mealFatLabel.text = "\(post.mealFat)"
         // Load image async via Nuke library image loading helper method
     }
     
