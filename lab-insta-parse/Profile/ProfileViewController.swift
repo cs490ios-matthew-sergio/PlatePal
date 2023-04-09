@@ -13,43 +13,79 @@ import ParseSwift
 
 
 
-class ProfileViewController: UIViewController, UITableViewDataSource {
+class ProfileViewController: UIViewController{
     @IBOutlet weak var UserPhoto: UIImageView!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var userNameLabel: UILabel!
-    var meals: [Meal] = []
+    private var meals = [Post]() {
+        didSet {
+            // Reload table view data any time the posts variable gets updated.
+            tableView.reloadData()
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
+        tableView.delegate = self
         tableView.dataSource = self
+        tableView.allowsSelection = false
+
         
         UserPhoto.layer.cornerRadius = UserPhoto.frame.height / 2
         
         userNameLabel.text = "USERNAME"
         
-        let query = PFQuery(className:"Post")
-        query.whereKey("user", equalTo:"AFl9EBRXzU")
-        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
-            if let error = error {
-                // Log details of the failure
-                print(error.localizedDescription)
-            } else if let objects = objects {
-                // The find succeeded.
-                print("Successfully retrieved \(objects.count) scores.")
-                // Do something with the found objects
-                for object in objects {
-                    print(object.objectId as Any)
-                }
-            }
-        }
         
-        meals = Meal.mockMeals
-        print(meals)
+        
+        //meals = Meal.mockMeals
+        //print(meals)
         
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        queryPosts()
+    }
+    
+    private func queryPosts(completion: (() -> Void)? = nil) {
+        // TODO: Pt 1 - Query Posts
+        // https://github.com/parse-community/Parse-Swift/blob/3d4bb13acd7496a49b259e541928ad493219d363/ParseSwift.playground/Pages/2%20-%20Finding%20Objects.xcplaygroundpage/Contents.swift#L66
+
+        // 1. Create a query to fetch Posts
+        // 2. Any properties that are Parse objects are stored by reference in Parse DB and as such need to explicitly use `include_:)` to be included in query results.
+        // 3. Sort the posts by descending order based on the created at date
+        // 4. TODO: Pt 2 - Only include results created yesterday onwards
+        // 5. TODO: Pt 2 - Limit max number of returned posts
+
+        // Get the date for yesterday. Adding (-1) day is equivalent to subtracting a day.
+        // NOTE: `Date()` is the date and time of "right now".
+        let query = Post.query()
+            .include("user")
+            .order([.descending("createdAt")]) // <- Only include results created yesterday onwards
+            .limit(20) // <- Limit max number of returned posts to 10
+
+        // Find and return posts that meet query criteria (async)
+        query.find { [weak self] result in
+            switch result {
+            case .success(let meals):
+                // Update the local posts property with fetched posts
+                self?.meals = meals
+            case .failure(let error):
+                self?.showAlert(description: error.localizedDescription)
+            }
+
+            // Call the completion handler (regardless of error or success, this will signal the query finished)
+            // This is used to tell the pull-to-refresh control to stop refresshing
+            completion?()
+        }
+    }
+    
     
     @IBAction func didTapPhoto(_ sender: UITapGestureRecognizer) {
         
@@ -69,25 +105,26 @@ class ProfileViewController: UIViewController, UITableViewDataSource {
     }
     */
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return meals.count
-    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Get a cell with identifier, "TrackCell"
-        // the `dequeueReusableCell(withIdentifier:)` method just returns a generic UITableViewCell so it's necessary to cast it to our specific custom cell.
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as! MealCell
-
-        // Get the track that corresponds to the table view row
-        let meal = meals[indexPath.row]
-
-        // Configure the cell with it's associated track
-        cell.configure(with: meal)
-
-        // return the cell for display in the table view
-        return cell
-    }
 
     
 
 }
+
+extension ProfileViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        meals.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as? MealCell else {
+            return UITableViewCell()
+        }
+        cell.configure(with: meals[indexPath.row])
+        //cell.layer.cornerRadius = 15
+        //cell.layer.masksToBounds = true
+        return cell
+    }
+}
+
+extension ProfileViewController: UITableViewDelegate { }

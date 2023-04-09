@@ -18,10 +18,11 @@ class MealCell: UITableViewCell {
     /// Configures the cell's UI for the given track.
     func configure(with post: Post) {
         mealNameLabel.text = post.caption
-        mealCalLabel.text = "\(post.mealCal)"
-        mealProLabel.text = "\(post.mealPro)"
-        mealCarLabel.text = "\(post.mealCar)"
-        mealFatLabel.text = "\(post.mealFat)"
+        
+        mealCalLabel.text = "\(ceil(post.mealCal!))"
+        mealProLabel.text = "\(ceil(post.mealPro!))"
+        mealCarLabel.text = "\(ceil(post.mealCar!))"
+        mealFatLabel.text = "\(ceil(post.mealFat!))"
         // Load image async via Nuke library image loading helper method
     }
     
