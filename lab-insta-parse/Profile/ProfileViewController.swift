@@ -18,10 +18,40 @@ class ProfileViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var avgCal: UILabel!
+    @IBOutlet weak var avgFat: UILabel!
+    @IBOutlet weak var avgCarb: UILabel!
+    @IBOutlet weak var avgPro: UILabel!
+    
+    var averageCal :Float = 0.0
+    var averagePro :Float = 0.0
+    var averageCarb :Float = 0.0
+    var averageFat :Float = 0.0
+    
     private var meals = [Post]() {
         didSet {
             // Reload table view data any time the posts variable gets updated.
             tableView.reloadData()
+            //print(meals)
+            for fullMeal in meals {
+                averageCal += fullMeal.mealCal!
+                averagePro += fullMeal.mealPro!
+                averageCarb += fullMeal.mealCar!
+                averageFat += fullMeal.mealFat!
+                
+            }
+
+            
+            averageCal = averageCal / Float(meals.count)
+            averagePro = averagePro / Float(meals.count)
+            averageCarb = averageCarb / Float(meals.count)
+            averageFat = averageFat / Float(meals.count)
+            
+            avgCal.text = "\(ceil(averageCal))"
+            avgPro.text = "\(ceil(averagePro))" + "g"
+            avgCarb.text = "\(ceil(averageCarb))" + "g"
+            avgFat.text = "\(ceil(averageFat))" + "g"
+
         }
     }
     
@@ -51,6 +81,7 @@ class ProfileViewController: UIViewController{
         super.viewWillAppear(animated)
 
         queryPosts()
+        //print(meals)
     }
     
     private func queryPosts(completion: (() -> Void)? = nil) {
@@ -84,6 +115,9 @@ class ProfileViewController: UIViewController{
             // This is used to tell the pull-to-refresh control to stop refresshing
             completion?()
         }
+        
+        //print(meals)
+
     }
     
     
@@ -114,9 +148,11 @@ class ProfileViewController: UIViewController{
 extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         meals.count
+        
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //print(meals)
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as? MealCell else {
             return UITableViewCell()
         }

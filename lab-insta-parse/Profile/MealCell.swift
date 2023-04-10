@@ -20,9 +20,9 @@ class MealCell: UITableViewCell {
         mealNameLabel.text = post.caption
         
         mealCalLabel.text = "\(ceil(post.mealCal!))"
-        mealProLabel.text = "\(ceil(post.mealPro!))"
-        mealCarLabel.text = "\(ceil(post.mealCar!))"
-        mealFatLabel.text = "\(ceil(post.mealFat!))"
+        mealProLabel.text = "\(ceil(post.mealPro!))" + "g"
+        mealCarLabel.text = "\(ceil(post.mealCar!))" + "g"
+        mealFatLabel.text = "\(ceil(post.mealFat!))" + "g"
         // Load image async via Nuke library image loading helper method
     }
     
