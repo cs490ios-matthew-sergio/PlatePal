@@ -60,14 +60,5 @@ class PostCell: UITableViewCell {
 
     }
 
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        // TODO: Pt 1 - Cancel image data request
-
-        // Reset image view image.
-        postImageView.image = nil
-
-        // Cancel image request.
-        imageDataRequest?.cancel()
-    }
+    
 }
