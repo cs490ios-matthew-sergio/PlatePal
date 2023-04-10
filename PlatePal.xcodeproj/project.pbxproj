@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E7BE53E29E3A05700DCBDC0 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7BE53D29E3A05700DCBDC0 /* DetailViewController.swift */; };
 		0EAAEF6D29D1240E00E3A358 /* HomeFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EAAEF6C29D1240E00E3A358 /* HomeFeed.storyboard */; };
 		0EAAEF6F29D1243300E3A358 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EAAEF6E29D1243300E3A358 /* Profile.storyboard */; };
 		CB13E51F2913A16C008F45BB /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB13E51E2913A16C008F45BB /* PostCell.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E7BE53D29E3A05700DCBDC0 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0EAAEF6C29D1240E00E3A358 /* HomeFeed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeFeed.storyboard; sourceTree = "<group>"; };
 		0EAAEF6E29D1243300E3A358 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		CB13E51E2913A16C008F45BB /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 		CB13E51D2913A121008F45BB /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				0E7BE53D29E3A05700DCBDC0 /* DetailViewController.swift */,
 				CB6997522911354B007EDA6B /* FeedViewController.swift */,
 				CB13E51E2913A16C008F45BB /* PostCell.swift */,
 			);
@@ -261,6 +264,7 @@
 				CB73D395290E3B4A00C12538 /* AppDelegate.swift in Sources */,
 				CB6997532911354B007EDA6B /* FeedViewController.swift in Sources */,
 				DCAC30A029D8AAA800920820 /* ProfileViewController.swift in Sources */,
+				0E7BE53E29E3A05700DCBDC0 /* DetailViewController.swift in Sources */,
 				CB7896FD29371C3C00635932 /* User.swift in Sources */,
 				CB6997512911044D007EDA6B /* SignUpViewController.swift in Sources */,
 				CB13E5212913B10B008F45BB /* DateFormatter+Extensions.swift in Sources */,

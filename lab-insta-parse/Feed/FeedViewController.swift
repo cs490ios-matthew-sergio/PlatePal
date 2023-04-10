@@ -27,7 +27,7 @@ class FeedViewController: UIViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.allowsSelection = false
+        tableView.allowsSelection = true
 
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(onPullToRefresh), for: .valueChanged)
@@ -109,6 +109,25 @@ extension FeedViewController: UITableViewDataSource {
         //cell.layer.masksToBounds = true
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // TODO: Pt 1 - Pass the selected track to the detail view controller
+        if let cell = sender as? UITableViewCell,
+           // Get the index path of the cell from the table view
+           let indexPath = tableView.indexPath(for: cell),
+           // Get the detail view controller
+           let detailViewController = segue.destination as? DetailViewController {
+
+            // Use the index path to get the associated track
+            let post = posts[indexPath.row]
+
+            // Set the track on the detail view controller
+            detailViewController.post = post
+        }
+
+    }
+    
+
 }
 
 extension FeedViewController: UITableViewDelegate { }
